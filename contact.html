@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get A Quote | Complete Crete Coatings</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #030303; --surface: #0a0a0a; --surface-2: #111; --surface-3: #181818;
+    --border: #1a1a1a; --border-light: #2a2a2a;
+    --gold: #c9a84c; --gold-soft: #d4b86a; --gold-glow: #c9a84c12; --gold-dim: #c9a84c40;
+    --text: #eee; --text-mid: #aaa; --text-dim: #666;
+    --error: #e85454; --success: #4ecb71;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: var(--black); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; color: inherit; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(20px,4vw,60px); height: 64px; background: rgba(3,3,3,0.6); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .nav-wordmark { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; }
+  .nav-wordmark span { color: var(--gold); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-dim); transition: color 0.3s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-quote { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 10px 22px; border-radius: 2px; }
+  .menu-btn { display: none; background: none; border: none; cursor: pointer; }
+  .menu-btn span { display: block; width: 22px; height: 1.5px; background: var(--text); margin: 5px 0; }
+
+  /* Mobile menu */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: #0a0a0a;
+    border-bottom: 1px solid #1a1a1a;
+    z-index: 99;
+    padding: 16px 0;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .mobile-menu a {
+    display: block;
+    padding: 14px clamp(20px,4vw,60px);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: #aaa;
+    transition: color 0.3s, background 0.3s;
+  }
+  .mobile-menu a:hover {
+    color: #c9a84c;
+    background: rgba(201,168,76,0.05);
+  }
+  .mobile-menu .mobile-cta {
+    margin: 12px clamp(20px,4vw,60px) 4px;
+    display: block; text-align: center;
+    background: #c9a84c; color: #030303;
+    padding: 14px;
+    border-radius: 3px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 800;
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+
+  /* Layout */
+  .contact-page {
+    max-width: 1200px; margin: 0 auto;
+    padding: 140px clamp(20px,4vw,60px) 80px;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  /* Left side */
+  .contact-info { position: sticky; top: 100px; }
+  .eyebrow { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .contact-info h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(28px,4vw,44px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .contact-info h1 strong { color: var(--gold); }
+  .contact-info > p {
+    font-size: 15px; color: var(--text-mid);
+    line-height: 1.7; margin-bottom: 36px;
+    max-width: 380px;
+  }
+  .info-items { list-style: none; }
+  .info-items li {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .info-items li:first-child { border-top: 1px solid var(--border); }
+  .info-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold);
+    min-width: 60px;
+  }
+  .info-value {
+    font-size: 14px; color: var(--text-mid);
+  }
+  .info-value a { color: var(--text-mid); transition: color 0.3s; }
+  .info-value a:hover { color: var(--gold); }
+
+  /* Form */
+  .quote-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: clamp(28px,4vw,48px);
+  }
+  .form-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px; font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .form-subtitle {
+    font-size: 13px; color: var(--text-dim);
+    margin-bottom: 28px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .form-row.full { grid-template-columns: 1fr; }
+
+  .field { display: flex; flex-direction: column; }
+  .field label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    background: var(--black);
+    border: 1px solid var(--border-light);
+    border-radius: 3px;
+    padding: 16px 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+    width: 100%;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px var(--gold-glow);
+  }
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+  .field select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23c9a84c' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+  .field select option {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    padding: 12px;
+  }
+  .field textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  /* Service checkboxes */
+  .checkbox-group {
+    margin-bottom: 16px;
+  }
+  .checkbox-group label.group-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .checkbox-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 16px;
+    background: var(--black);
+    border: 1px solid var(--border-light);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .checkbox-item:hover { border-color: var(--gold-dim); }
+  .checkbox-item.checked {
+    border-color: var(--gold);
+    background: var(--gold-glow);
+  }
+  .checkbox-item input {
+    display: none;
+  }
+  .check-box {
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--border-light);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s;
+  }
+  .checked .check-box {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .check-box::after {
+    content: '✓';
+    font-size: 10px;
+    color: var(--black);
+    font-weight: 900;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .checked .check-box::after { opacity: 1; }
+  .checkbox-item span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 500; color: var(--text-mid);
+  }
+
+  .form-divider {
+    height: 1px; background: var(--border);
+    margin: 24px 0;
+  }
+
+  .submit-btn {
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 18px;
+    background: var(--gold);
+    color: var(--black);
+    border: none; border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.4s;
+    margin-top: 8px;
+  }
+  .submit-btn:hover { background: var(--gold-soft); transform: translateY(-1px); }
+  .submit-btn:active { transform: translateY(0); }
+
+  .form-note {
+    text-align: center;
+    font-size: 12px; color: var(--text-dim);
+    margin-top: 16px;
+  }
+
+  /* Success state */
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .success-msg.show { display: block; }
+  .success-msg h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px; font-weight: 800;
+    color: var(--success);
+    margin-bottom: 12px;
+  }
+  .success-msg p {
+    font-size: 15px; color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  .footer { border-top: 1px solid var(--border); padding: 48px clamp(20px,4vw,60px); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; max-width: 1200px; margin: 0 auto; }
+  .footer p { font-size: 11px; color: var(--text-dim); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-size: 11px; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .menu-btn { display: block; }
+    .nav-quote { display: none; }
+    .mobile-menu { display: block; }
+    .contact-page { grid-template-columns: 1fr; gap: 40px; }
+    .contact-info { position: static; }
+    .checkbox-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 500px) {
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-wordmark">Complete<span>Crete</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Quote</a></li>
+  </ul>
+  <a href="contact.html" class="nav-quote">Free Estimate</a>
+  <button class="menu-btn" onclick="document.getElementById('mobileMenu').classList.toggle('open')"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Quote</a>
+  <a href="contact.html" class="mobile-cta">Free Estimate</a>
+</div>
+
+<div class="contact-page">
+  <!-- Left -->
+  <div class="contact-info">
+    <div class="eyebrow">Get A Quote</div>
+    <h1>Tell Us About<br>Your <strong>Space</strong></h1>
+    <p>Fill out the form and we'll get back to you with a system recommendation and a free estimate. No pressure, no games.</p>
+
+    <ul class="info-items">
+      <li>
+        <span class="info-label">Phone</span>
+        <span class="info-value"><a href="tel:9312396505">(931) 239-6505</a></span>
+      </li>
+      <li>
+        <span class="info-label">Email</span>
+        <span class="info-value"><a href="mailto:completecretecoatings@gmail.com">completecretecoatings@gmail.com</a></span>
+      </li>
+      <li>
+        <span class="info-label">Location</span>
+        <span class="info-value">Cookeville, TN 38501</span>
+      </li>
+      <li>
+        <span class="info-label">Hours</span>
+        <span class="info-value">Always available</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Form -->
+  <div class="quote-form" id="quoteForm">
+    <div class="form-title">Request A Free Estimate</div>
+    <div class="form-subtitle">We'll respond within 24 hours.</div>
+
+    <form id="estimateForm" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="field">
+          <label>First Name *</label>
+          <input type="text" name="firstName" placeholder="John" required>
+        </div>
+        <div class="field">
+          <label>Last Name *</label>
+          <input type="text" name="lastName" placeholder="Smith" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Phone *</label>
+          <input type="tel" name="phone" placeholder="(931) 555-0000" required>
+        </div>
+        <div class="field">
+          <label>Email *</label>
+          <input type="email" name="email" placeholder="john@email.com" required>
+        </div>
+      </div>
+
+      <div class="form-row full">
+        <div class="field">
+          <label>Address</label>
+          <input type="text" name="address" placeholder="123 Main St, Cookeville, TN">
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Project Type *</label>
+          <select name="projectType" required>
+            <option value="" disabled selected>Select type</option>
+            <option value="residential-garage">Residential Garage</option>
+            <option value="residential-other">Residential (Other)</option>
+            <option value="commercial">Commercial</option>
+            <option value="industrial">Industrial</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Approximate Square Footage</label>
+          <input type="text" name="sqft" placeholder="e.g. 600">
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <label class="group-label">Services Interested In</label>
+        <div class="checkbox-grid">
+          <label class="checkbox-item" onclick="this.classList.toggle('checked')">
+            <input type="checkbox" name="services" value="garage-flake">
+            <div class="check-box"></div>
+            <span>Garage Flake</span>
+          </label>
+          <label class="checkbox-item" onclick="this.classList.toggle('checked')">
+            <input type="checkbox" name="services" value="metallic">
+            <div class="check-box"></div>
+            <span>Metallic Coating</span>
+          </label>
+          <label class="checkbox-item" onclick="this.classList.toggle('checked')">
+            <input type="checkbox" name="services" value="polyaspartic">
+            <div class="check-box"></div>
+            <span>Polyaspartic</span>
+          </label>
+          <label class="checkbox-item" onclick="this.classList.toggle('checked')">
+            <input type="checkbox" name="services" value="polishing">
+            <div class="check-box"></div>
+            <span>Concrete Polishing</span>
+          </label>
+          <label class="checkbox-item" onclick="this.classList.toggle('checked')">
+            <input type="checkbox" name="services" value="staining">
+            <div class="check-box"></div>
+            <span>Stain & Seal</span>
+          </label>
+          <label class="checkbox-item" onclick="this.classList.toggle('checked')">
+            <input type="checkbox" name="services" value="ceiling">
+            <div class="check-box"></div>
+            <span>Ceiling Coating</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-row full">
+        <div class="field">
+          <label>Tell Us More</label>
+          <textarea name="details" placeholder="Anything else we should know — current floor condition, timeline, specific concerns, etc."></textarea>
+        </div>
+      </div>
+
+      <a href="tel:9312396505" class="submit-btn" style="display:block;text-align:center;">Call Now — (931) 239-6505</a>
+      <p class="form-note">We'll get back to you within 24 hours. Call us anytime at (931) 239-6505.</p>
+    </form>
+
+    <div class="success-msg" id="successMsg">
+      <h3>Request Received</h3>
+      <p>Thanks for reaching out. We'll review your project details and get back to you within 24 hours with a system recommendation and estimate.</p>
+      <p style="margin-top: 16px; color: var(--gold); font-weight: 600;">— Complete Crete Coatings</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>&copy; 2026 Complete Crete Coatings LLC &middot; Cookeville, TN</p>
+  <ul class="footer-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Quote</a></li>
+  </ul>
+</div>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('estimateForm').style.display = 'none';
+  document.querySelector('.form-title').style.display = 'none';
+  document.querySelector('.form-subtitle').style.display = 'none';
+  document.getElementById('successMsg').classList.add('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

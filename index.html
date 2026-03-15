@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete Crete Coatings | Cookeville, TN</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #030303;
+    --surface: #0a0a0a;
+    --surface-2: #111;
+    --border: #1a1a1a;
+    --gold: #c9a84c;
+    --gold-soft: #d4b86a;
+    --gold-glow: #c9a84c12;
+    --text: #eee;
+    --text-mid: #aaa;
+    --text-dim: #666;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--black);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 clamp(20px, 4vw, 60px);
+    height: 64px;
+    background: rgba(3,3,3,0.6);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .nav-wordmark {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800; font-size: 15px; letter-spacing: 0.5px;
+  }
+  .nav-wordmark span { color: var(--gold); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-size: 12px; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text-dim);
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-quote {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--black); background: var(--gold);
+    padding: 10px 22px; border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .nav-quote:hover { background: var(--gold-soft); }
+  .menu-btn { display: none; background: none; border: none; cursor: pointer; z-index: 101; }
+  .menu-btn span { display: block; width: 22px; height: 1.5px; background: var(--text); margin: 5px 0; transition: 0.3s; }
+
+  /* Mobile menu */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    z-index: 99;
+    padding: 16px 0;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .mobile-menu a {
+    display: block;
+    padding: 14px clamp(20px,4vw,60px);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--text-mid);
+    transition: color 0.3s, background 0.3s;
+  }
+  .mobile-menu a:hover {
+    color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+  .mobile-menu .mobile-cta {
+    margin: 12px clamp(20px,4vw,60px) 4px;
+    display: block; text-align: center;
+    background: var(--gold); color: var(--black);
+    padding: 14px;
+    border-radius: 3px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 800;
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    height: 85vh; min-height: 550px;
+    display: flex; align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-media {
+    position: absolute; inset: 0;
+    background: url('brand_assets/ChatGPT Image Mar 15, 2026, 01_01_56 AM.png') center 70% / cover no-repeat;
+  }
+  .hero-media::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to top,
+      var(--black) 0%,
+      rgba(3,3,3,0.85) 30%,
+      rgba(3,3,3,0.3) 60%,
+      rgba(3,3,3,0.15) 100%
+    );
+  }
+  .hero-inner {
+    position: relative; z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 4vw, 60px) clamp(60px, 10vh, 120px);
+  }
+  .hero-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 5px; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    opacity: 0; animation: rise 1s ease 0.2s forwards;
+  }
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(38px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    max-width: 800px;
+    margin-bottom: 28px;
+    opacity: 0; animation: rise 1s ease 0.4s forwards;
+  }
+  .hero h1 strong {
+    font-weight: 600;
+    color: var(--gold);
+  }
+  .hero-line {
+    width: 60px; height: 1px;
+    background: var(--gold);
+    margin-bottom: 28px;
+    opacity: 0; animation: rise 1s ease 0.6s forwards;
+  }
+  .hero-p {
+    font-size: 16px; font-weight: 400;
+    color: var(--text-mid);
+    max-width: 420px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    opacity: 0; animation: rise 1s ease 0.7s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+    opacity: 0; animation: rise 1s ease 0.9s forwards;
+  }
+  .btn-fill {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 16px 36px;
+    background: var(--gold); color: var(--black);
+    border: none; border-radius: 2px;
+    cursor: pointer; transition: all 0.4s;
+  }
+  .btn-fill:hover { background: var(--gold-soft); transform: translateY(-1px); }
+  .btn-ghost {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 16px 36px;
+    background: transparent; color: var(--text-mid);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    cursor: pointer; transition: all 0.4s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Marquee text ── */
+  .marquee-strip {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    position: relative; z-index: 2;
+  }
+  .marquee-track {
+    display: flex; gap: 0;
+    animation: scroll 30s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+    padding: 0 40px;
+  }
+  .marquee-item .dot {
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 40px;
+  }
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── Split section ── */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: auto;
+    position: relative; z-index: 2;
+  }
+  .split-img {
+    position: relative;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .split-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .split-img .img-placeholder {
+    width: 100%; height: 100%; min-height: 300px;
+    background: var(--surface-2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: var(--text-dim); letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .split-content {
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: clamp(40px, 5vw, 70px);
+    background: var(--surface);
+  }
+  .eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 5px; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .split-content h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+  .split-content h2 strong { font-weight: 800; color: var(--gold); }
+  .split-content p {
+    font-size: 15px; font-weight: 400;
+    color: var(--text-mid);
+    line-height: 1.8;
+    max-width: 440px;
+    margin-bottom: 16px;
+  }
+  .split-content .divider {
+    width: 40px; height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+  .service-list {
+    list-style: none;
+    margin-top: 8px;
+  }
+  .service-list li {
+    font-size: 14px; font-weight: 400;
+    color: var(--text-mid);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.3s;
+  }
+  .service-list li:hover { color: var(--gold); }
+  .service-list li span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .service-list li:hover span { opacity: 1; }
+  .service-list li:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Full-width quote ── */
+  .quote-block {
+    position: relative; z-index: 2;
+    padding: clamp(50px, 6vw, 80px) clamp(20px, 4vw, 60px);
+    text-align: center;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .quote-block blockquote {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(20px, 2.5vw, 32px);
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.5;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    color: var(--gold);
+  }
+  .quote-block cite {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--text-dim);
+    font-style: normal;
+  }
+
+  /* ── Process — minimal ── */
+  .process {
+    position: relative; z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(50px, 6vw, 80px) clamp(20px, 4vw, 60px);
+  }
+  .process-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+    gap: 12px;
+  }
+  .process-header h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 800;
+    line-height: 1.15;
+  }
+  .process-header h2 strong { font-weight: 800; color: var(--gold); }
+  .process-header p {
+    font-size: 14px; color: var(--text-dim);
+    max-width: 500px;
+    line-height: 1.7;
+    text-align: left;
+  }
+  .process-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+  .process-cell {
+    background: var(--surface);
+    padding: 40px 28px;
+    transition: background 0.4s;
+  }
+  .process-cell:hover { background: var(--surface); }
+  .process-num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 44px; font-weight: 800;
+    color: var(--gold);
+    opacity: 0.3;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .process-cell h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .process-cell p {
+    font-size: 14px; font-weight: 400;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ── CTA ── */
+  .cta-end {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: clamp(60px, 8vw, 100px) clamp(20px, 4vw, 60px);
+    border-top: 1px solid var(--border);
+  }
+  .cta-end .eyebrow { margin-bottom: 16px; }
+  .cta-end h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(32px, 4.5vw, 56px);
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+  .cta-end h2 strong { font-weight: 800; color: var(--gold); }
+  .cta-end p {
+    font-size: 15px; color: var(--text-dim);
+    max-width: 440px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+  }
+  .cta-end .phone {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 800;
+    color: var(--gold);
+    margin-top: 20px;
+    letter-spacing: 2px;
+    transition: opacity 0.3s;
+  }
+  .cta-end .phone:hover { opacity: 0.7; }
+
+  /* ── Footer ── */
+  .footer {
+    position: relative; z-index: 2;
+    border-top: 1px solid var(--border);
+    padding: 48px clamp(20px, 4vw, 60px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .footer p {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+  }
+  .footer-links {
+    display: flex; gap: 24px; list-style: none;
+  }
+  .footer-links a {
+    font-size: 11px; color: var(--text-dim);
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── Reveal ── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.vis { opacity: 1; transform: translateY(0); }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .nav-quote { display: none; }
+    .menu-btn { display: block; }
+    .mobile-menu { display: block; }
+    .split { grid-template-columns: 1fr; }
+    .split-img .img-placeholder { min-height: 350px; }
+    .process-row { grid-template-columns: 1fr 1fr; }
+    .process-header { flex-direction: column; }
+    .process-header p { text-align: left; }
+  }
+  @media (max-width: 600px) {
+    .process-row { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-wordmark">Complete<span>Crete</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Quote</a></li>
+  </ul>
+  <a href="contact.html" class="nav-quote">Free Estimate</a>
+  <button class="menu-btn" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Quote</a>
+  <a href="contact.html" class="mobile-cta">Free Estimate</a>
+</div>
+
+<!-- ════ HERO ════ -->
+<section class="hero">
+  <div class="hero-media"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Cookeville, Tennessee</div>
+    <h1>The Floor Is<br>the <strong>Foundation</strong></h1>
+    <div class="hero-line"></div>
+    <p class="hero-p">Premium concrete coatings for garages, commercial spaces, and industrial facilities. Process-driven installation. Built to perform.</p>
+    <div class="hero-actions">
+      <a href="contact.html" class="btn-fill">Get A Free Estimate</a>
+      <a href="gallery.html" class="btn-ghost">View Our Work</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ MARQUEE ════ -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="dot"></span>Garage Flake Systems</div>
+    <div class="marquee-item"><span class="dot"></span>Metallic Coatings</div>
+    <div class="marquee-item"><span class="dot"></span>Polyaspartic</div>
+    <div class="marquee-item"><span class="dot"></span>Concrete Polishing</div>
+    <div class="marquee-item"><span class="dot"></span>Stain &amp; Seal</div>
+    <div class="marquee-item"><span class="dot"></span>Ceiling Coatings</div>
+    <div class="marquee-item"><span class="dot"></span>Residential</div>
+    <div class="marquee-item"><span class="dot"></span>Commercial</div>
+    <div class="marquee-item"><span class="dot"></span>Industrial</div>
+    <div class="marquee-item"><span class="dot"></span>Garage Flake Systems</div>
+    <div class="marquee-item"><span class="dot"></span>Metallic Coatings</div>
+    <div class="marquee-item"><span class="dot"></span>Polyaspartic</div>
+    <div class="marquee-item"><span class="dot"></span>Concrete Polishing</div>
+    <div class="marquee-item"><span class="dot"></span>Stain &amp; Seal</div>
+    <div class="marquee-item"><span class="dot"></span>Ceiling Coatings</div>
+    <div class="marquee-item"><span class="dot"></span>Residential</div>
+    <div class="marquee-item"><span class="dot"></span>Commercial</div>
+    <div class="marquee-item"><span class="dot"></span>Industrial</div>
+  </div>
+</div>
+
+<!-- ════ SPLIT: SERVICES ════ -->
+<section class="split">
+  <div class="split-img">
+    <img src="brand_assets/garage-flake-hero.png" alt="Garage flake floor coating" style="width:100%;height:100%;object-fit:cover;display:block;">
+  </div>
+  <div class="split-content reveal">
+    <div class="eyebrow">Services</div>
+    <h2>Every Floor Gets<br>the <strong>Right System</strong></h2>
+    <p>No one-size-fits-all. We select the coating system based on your space, traffic, moisture conditions, and how you use it.</p>
+    <div class="divider"></div>
+    <ul class="service-list">
+      <li>Garage Flake Systems <span>Most Popular</span></li>
+      <li>Metallic Epoxy <span>View</span></li>
+      <li>Polyaspartic Coatings <span>View</span></li>
+      <li>Concrete Polishing <span>View</span></li>
+      <li>Stain &amp; Seal <span>View</span></li>
+      <li>Ceiling Coatings <span>View</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════ QUOTE ════ -->
+<section class="quote-block reveal">
+  <blockquote>"Most coating failures don't start at the surface. They start underneath it."</blockquote>
+  <cite>Complete Crete Coatings</cite>
+</section>
+
+<!-- ════ SPLIT: ABOUT ════ -->
+<section class="split" style="grid-template-columns: 1fr;">
+  <div class="split-content reveal" style="max-width: 1200px; margin: 0 auto; background: var(--surface-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="eyebrow">Our Approach</div>
+    <h2>We Don't Cut Corners.<br>We <strong>Coat Them.</strong></h2>
+    <p>Before any coating is applied, the concrete has to be mechanically prepped, corrected, and brought into the right condition for the system being used.</p>
+    <p style="color: var(--text-dim);">This step doesn't get much attention, but it determines whether a floor performs long term or starts showing issues months later.</p>
+    <div class="divider"></div>
+    <a href="about.html" class="btn-ghost" style="display: inline-block; margin-top: 8px;">Learn More</a>
+  </div>
+</section>
+
+<!-- ════ PROCESS ════ -->
+<section class="process reveal">
+  <div class="process-header">
+    <h2>How Every<br>Floor <strong>Gets Done</strong></h2>
+    <p>From evaluation to final topcoat, every step exists for a reason. When the process is followed, the result is predictable.</p>
+  </div>
+  <div class="process-row">
+    <div class="process-cell">
+      <div class="process-num">01</div>
+      <h4>Evaluate</h4>
+      <p>Moisture, condition, traffic patterns. We assess what system your concrete actually needs.</p>
+    </div>
+    <div class="process-cell">
+      <div class="process-num">02</div>
+      <h4>Prep</h4>
+      <p>Diamond grinding. Crack repair. Mechanical profiling so the coating bonds — permanently.</p>
+    </div>
+    <div class="process-cell">
+      <div class="process-num">03</div>
+      <h4>Apply</h4>
+      <p>The right system, measured and applied with precision. No guessing. No rushing.</p>
+    </div>
+    <div class="process-cell">
+      <div class="process-num">04</div>
+      <h4>Protect</h4>
+      <p>UV-stable topcoat. Chemical resistant. Scratch resistant. Built for daily use.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CTA ════ -->
+<section class="cta-end reveal">
+  <div class="eyebrow">Ready?</div>
+  <h2>Let's Talk About<br>Your <strong>Floor</strong></h2>
+  <p>Tell us about your space. We'll put together a system recommendation and a quote. No pressure.</p>
+  <a href="contact.html" class="btn-fill">Request A Quote</a>
+  <a href="tel:9312396505" class="phone">(931) 239-6505</a>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<div class="footer">
+  <p>&copy; 2026 Complete Crete Coatings LLC &nbsp;&middot;&nbsp; Cookeville, TN</p>
+  <ul class="footer-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Quote</a></li>
+    <li><a href="mailto:completecretecoatings@gmail.com">Email</a></li>
+  </ul>
+</div>
+
+<script>
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
